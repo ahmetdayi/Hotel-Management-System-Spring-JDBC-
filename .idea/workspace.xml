@@ -4,11 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="723a4201-881b-4850-9317-1970a47b29f4" name="Changes" comment="guest added">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/User.java" afterDir="false" />
+    <list default="true" id="723a4201-881b-4850-9317-1970a47b29f4" name="Changes" comment="repo and entity classes are created">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/config/ApplicationConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/HouseKeepingSchedules.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/RoomType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/dto/CreateBookRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/dto/CreateHouseKeepingSchedulesRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/dto/CreateRoomRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/dto/CreateUserRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/dto/UpdateRoomRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/dto/UpdateUserRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/dto/converter/RoleConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/dto/converter/RoomTypeConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/repository/abstracts/IHouseKeepingSchedulesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/repository/concretes/HouseKeepingSchedulesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/service/BookingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/service/HouseKeepingSchedulesService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/service/RoomService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/cs202/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/entity/Guest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/entity/concretes/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/repository/abstracts/IBookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/repository/abstracts/IBookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/repository/abstracts/IRoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/repository/abstracts/IRoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/repository/abstracts/IUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/repository/abstracts/IUserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/repository/concretes/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/repository/concretes/BookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/repository/concretes/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/repository/concretes/RoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/cs202/repository/concretes/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/cs202/repository/concretes/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,9 +42,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -42,14 +66,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jhhtr/OneDrive/Masaüstü/Footballer&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;ecfe0724b13bce6d9e29ef4939f13fee&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.cs202.entity.dto" />
+      <recent name="org.cs202.entity.dto.converter" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -58,7 +98,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1671190552511</updated>
-      <workItem from="1671190555039" duration="4074000" />
+      <workItem from="1671190555039" duration="4588000" />
+      <workItem from="1671206970658" duration="4331000" />
+      <workItem from="1671467380971" duration="170000" />
+      <workItem from="1671547552660" duration="2781000" />
+      <workItem from="1671564683894" duration="21000" />
+      <workItem from="1671621084531" duration="2831000" />
+      <workItem from="1671637668644" duration="9821000" />
+      <workItem from="1671746103432" duration="29000" />
+      <workItem from="1671793910497" duration="6455000" />
     </task>
     <task id="LOCAL-00001" summary="guest added">
       <created>1671200591191</created>
@@ -74,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671200686150</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="repo and entity classes are created">
+      <created>1671201816241</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1671201816241</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +148,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="guest added" />
-    <option name="LAST_COMMIT_MESSAGE" value="guest added" />
+    <MESSAGE value="repo and entity classes are created" />
+    <option name="LAST_COMMIT_MESSAGE" value="repo and entity classes are created" />
   </component>
 </project>
