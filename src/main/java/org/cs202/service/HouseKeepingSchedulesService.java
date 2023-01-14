@@ -1,11 +1,13 @@
 package org.cs202.service;
 
 import org.cs202.entity.concretes.HouseKeepingSchedules;
+import org.cs202.entity.concretes.Room;
 import org.cs202.entity.dto.CreateHouseKeepingSchedulesRequest;
 import org.cs202.repository.concretes.HouseKeepingSchedulesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HouseKeepingSchedulesService {
 
@@ -23,7 +25,7 @@ public class HouseKeepingSchedulesService {
         return houseKeepingSchedulesRepository.findAll();
     }
 
-    public HouseKeepingSchedules create(CreateHouseKeepingSchedulesRequest schedules){
+    public boolean create(CreateHouseKeepingSchedulesRequest schedules){
         if(!userService.getById(schedules.getCreatedUserId()).getRole().toString().equalsIgnoreCase("RECEPTIONIST")){
             throw new RuntimeException("Your Role not Suitable for this");
         }
@@ -38,6 +40,23 @@ public class HouseKeepingSchedulesService {
                         userService.getById(schedules.getHouseKeepingId())
                 );
         return houseKeepingSchedulesRepository.save(houseKeepingSchedules);
+    }
 
+    public boolean clean(int roomId,int houseKeepingId,int houseKeepingScheduleId){
+        HouseKeepingSchedules houseKeepingSchedules = houseKeepingSchedulesRepository.getById(houseKeepingScheduleId);
+        if(houseKeepingSchedules.getHouseKeeping().getId()==houseKeepingId){
+            if(houseKeepingSchedules.getRoom().getId()==roomId){
+                return houseKeepingSchedulesRepository.deleteById(houseKeepingScheduleId);
+            }
+            else {
+                return false;
+            }
+        }else {
+            return false;
+        }
+    }
+    public List<Room> getRooms(){
+        List<HouseKeepingSchedules> all = houseKeepingSchedulesRepository.findAll();
+        return all.stream().map(HouseKeepingSchedules::getRoom).collect(Collectors.toList());
     }
 }

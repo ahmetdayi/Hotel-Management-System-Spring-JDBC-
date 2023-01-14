@@ -16,13 +16,15 @@ public class UserService {
     @Autowired
     private RoleConverter converter;
 
-    public User create(CreateUserRequest request) {
+    public boolean create(CreateUserRequest request) {
         User user1 = new User(request.getName(),converter.convert(request.getRole()));
+
         try {
             return userRepository.save(user1);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public void deleteById(int id){
@@ -38,11 +40,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void update(UpdateUserRequest request){
+    public boolean update(UpdateUserRequest request){
         User user = userRepository.getById(request.getId());
         user.setName(request.getName());
-        user.setRole(converter.convert(request.getRole()));
-        userRepository.update(user);
+        return userRepository.updateName(user);
     }
 
     public User getById(int id){

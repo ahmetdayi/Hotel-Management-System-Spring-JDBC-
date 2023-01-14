@@ -21,20 +21,11 @@ public class RoomRepository implements IRoomRepository {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Override
-    public Room save(Room room) {
+    public boolean save(Room room) {
         String sql = "INSERT INTO room (name,roomType,createdUserId) VALUES ( ?,?,?)";
         Object[] args = { room.getName(), room.getRoomType().toString(),room.getCreatedUser().getId()};
         int rowsAffected = jdbcTemplate.update(sql, args);
-        if (rowsAffected == 1) {
-            return room;
-        } else {
-            // handle error
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
+        return rowsAffected == 1;
     }
 
     @Override
@@ -44,17 +35,40 @@ public class RoomRepository implements IRoomRepository {
     }
 
     @Override
-    public void deleteById(int roomId,int callingUserId) {
-        String sql = "DELETE FROM room WHERE id = ?";
-        Object[] args = { roomId };
-        jdbcTemplate.update(sql, args);
+    public boolean deleteById(int roomId,int callingUserId) {
+       try {
+           String sql = "DELETE FROM room WHERE id = ?";
+           Object[] args = { roomId };
+           jdbcTemplate.update(sql, args);
+       }
+       catch (Exception e){
+           return false;
+       }
+       return true;
     }
 
     @Override
-    public void update(Room room) {
-        String sql = "UPDATE room SET name = ?, roomType = ? WHERE id = ?";
-        Object[] args = { room.getId(), room.getName(), room.getRoomType().toString() };
-        jdbcTemplate.update(sql, args);
+    public boolean updateRename(Room room) {
+        try {
+            String sql = "UPDATE room SET name = ? WHERE id = ?";
+            Object[] args = { room.getId(), room.getName(), room.getRoomType().toString() };
+            jdbcTemplate.update(sql, args);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean updateChangeType(Room room) {
+        try {
+            String sql = "UPDATE room SET roomType = ? WHERE id = ?";
+            Object[] args = { room.getId(), room.getName(), room.getRoomType().toString() };
+            jdbcTemplate.update(sql, args);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
     @Override

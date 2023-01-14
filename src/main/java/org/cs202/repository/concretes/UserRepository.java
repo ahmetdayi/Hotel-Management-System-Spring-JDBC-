@@ -18,17 +18,17 @@ public class UserRepository implements IUserRepository {
 
 
     @Override
-    public User save(User user) throws Exception {
+    public boolean save(User user) throws Exception {
         String sql = "INSERT INTO users (name,role) VALUES (?, ?)";
 
         Object[] args = {user.getName(), user.getRole().toString()};
         int rowsAffected = jdbcTemplate.update(sql, args);
 
         if (rowsAffected == 1) {
-            return user;
+            return true;
         } else {
             // handle error
-            throw new Exception();
+            return false;
         }
     }
 
@@ -40,10 +40,15 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void update(User user) {
-        String sql = "UPDATE users SET name = ?, role = ? WHERE id = ?";
-        Object[] args = { user.getName(), user.getRole().toString(), user.getId() };
-         jdbcTemplate.update(sql, args);
+    public boolean updateName(User user) {
+       try {
+           String sql = "UPDATE users SET name = ? WHERE id = ?";
+           Object[] args = { user.getName(), user.getRole().toString(), user.getId() };
+           jdbcTemplate.update(sql, args);
+       }catch (Exception e){
+           return false;
+       }
+       return true;
     }
 
     public User getById(int id) {

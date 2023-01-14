@@ -7,15 +7,18 @@ import java.util.List;
 
 public interface IRoomRepository {
 
-    Room save(Room room);
+    boolean save(Room room);
 
     List<Room> findAll();
 
     
 
-    void deleteById(int id,int callingUserId);
+    boolean deleteById(int id,int callingUserId);
 
-    void update(Room room);
+    boolean updateRename(Room room);
+
+    boolean updateChangeType(Room room);
+
 
     Room getById(int id);
 }

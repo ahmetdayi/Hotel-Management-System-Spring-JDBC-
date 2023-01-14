@@ -6,13 +6,18 @@ import org.cs202.repository.abstracts.IBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 public class BookRepository implements IBookRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 
     @Override
@@ -22,7 +27,7 @@ public class BookRepository implements IBookRepository {
     }
 
     @Override
-    public Book save(Book book) {
+    public boolean save(Book book) {
         List<Book> allBooking = findAll();
         for (Book books :
                 allBooking) {
@@ -39,32 +44,51 @@ public class BookRepository implements IBookRepository {
         String sql = "INSERT INTO book (dayStart,dayEnd,price,userId,roomId) VALUES (?,?)";
         Object[] args = {book.getDayStart(),book.getDayEnd(),book.getPrice(),book.getUser().getId(),book.getRoom().getId()};
         int rowsAffected = jdbcTemplate.update(sql, args);
-        if (rowsAffected == 1) {
-            return book;
-        } else {
-            // handle error
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        return rowsAffected == 1;
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+       try {
+           String sql = "DELETE FROM booking WHERE id = ?";
+           Object[] args = { id };
+           jdbcTemplate.update(sql, args);
+       }
+       catch (Exception e){
+           return false;
+       }
+       return true;
+    }
+
+    @Override
+    public boolean updateDate(Book book) {
+        try {
+            String sql = "UPDATE booking SET dayStart = ?, dayEnd =? WHERE id = ?";
+            Object[] args = { book.getId(),book.getDayStart(),book.getDayEnd() };
+            jdbcTemplate.update(sql, args);
+        }catch (Exception e){
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void deleteById(int id) {
-        String sql = "DELETE FROM booking WHERE id = ?";
-        Object[] args = { id };
-        jdbcTemplate.update(sql, args);
-    }
-
-    @Override
-    public void update(Book book) {
-
+    public boolean updatePrice(Book book) {
+        try {
+            String sql = "UPDATE booking SET price =? WHERE id = ?";
+            Object[] args = { book.getId(),book.getPrice() };
+            jdbcTemplate.update(sql, args);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public Book getById(int id) {
-        return null;
+        String sql = "SELECT * FROM booking WHERE id = :id";
+        Map<String, Object> params = Map.of("id", id);
+        RowMapper<Book> rowMapper = new BeanPropertyRowMapper<>(Book.class);
+        return namedParameterJdbcTemplate.queryForObject(sql, params, rowMapper);
     }
 }

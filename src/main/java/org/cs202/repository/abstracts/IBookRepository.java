@@ -7,13 +7,15 @@ import java.util.List;
 
 public interface IBookRepository {
 
-    Book save(Book book);
+    boolean save(Book book);
 
     List<Book> findAll();
 
-    void deleteById(int id);
+    boolean deleteById(int id);
 
-    void update(Book book);
+    boolean updateDate(Book book);
+
+    boolean updatePrice(Book book);
 
     Book getById(int id);
 }

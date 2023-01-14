@@ -27,7 +27,7 @@ public class RoomService {
     }
 
 
-    public Room create(CreateRoomRequest createRoomRequest){
+    public boolean create(CreateRoomRequest createRoomRequest){
 
         if(!userService.getById(createRoomRequest.getCreatedUserId()).getRole().toString().equalsIgnoreCase("ADMINISTRATOR")){
             throw new RuntimeException("Your Role not Suitable for this");
@@ -39,24 +39,31 @@ public class RoomService {
 
     }
 
-    public void deleteRoom(int id,int callingUserId){
+    public boolean deleteRoom(int id,int callingUserId){
         if (!userService.getById(callingUserId).getRole().toString().equalsIgnoreCase("ADMINISTRATOR")){
             throw new RuntimeException("Your Role not Suitable for this");
         }
-        roomRepository.deleteById(id,callingUserId);
+       return roomRepository.deleteById(id,callingUserId);
     }
 
-    public void updateRoom(UpdateRoomRequest updateRoomRequest){
+    public boolean updateRename(UpdateRoomRequest updateRoomRequest){
         if(!userService.getById(updateRoomRequest.getUpdatedUser()).getRole().toString().equalsIgnoreCase("ADMINISTRATOR")){
             throw new RuntimeException("Your Role not Suitable for this");
         }
         Room room = roomRepository.getById(updateRoomRequest.getId());
 
         room.setName(updateRoomRequest.getName());
+        return roomRepository.updateRename(room);
+
+    }
+    public boolean updateChangeType(UpdateRoomRequest updateRoomRequest){
+        if(!userService.getById(updateRoomRequest.getUpdatedUser()).getRole().toString().equalsIgnoreCase("ADMINISTRATOR")){
+            throw new RuntimeException("Your Role not Suitable for this");
+        }
+        Room room = roomRepository.getById(updateRoomRequest.getId());
+
         room.setRoomType(roomTypeConverter.convert(updateRoomRequest.getRoomType()));
-
-        roomRepository.update(room);
-
+        return roomRepository.updateChangeType(room);
     }
 
     public Room getById(int id){
